@@ -51,7 +51,19 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  res.end('implement login, please!');
+  //res.end('implement login, please!');
+  const { username, password } = req.body;
+  db('users as u')
+    .select('u.id', 'u.username', 'u.password')
+    .where({username: username})
+      .then(([user]) => {
+        res.status(200).json({ message: `welcome ${user.username}`})
+      })
+      .catch(error => {
+        res.status(500).json({ message: error.message });
+      });
+
+
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
