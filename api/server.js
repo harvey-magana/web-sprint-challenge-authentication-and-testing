@@ -10,6 +10,18 @@ const jokesRouter = require('./jokes/jokes-router.js');
 
 const server = express();
 
+const sessionConfig = {
+    name: 'hmsession',
+    secret: 'myspeshulsecret',
+    cookie: {
+      maxAge: 1000 * 60 * 60,
+      secure: false, // should be true in production
+      httpOnly: true
+    },
+    resave: false,
+    saveUninitialized: false
+  }
+
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
