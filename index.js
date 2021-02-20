@@ -9,13 +9,8 @@ server.listen(PORT, () => {
 
 
 //SESSIONS & COOKIES
-//15. to start using sessions, install express-session with 'npm install express-session' *
-//16. in server.js file, add const session = require('express-session); *
-//17. next, in server.js, create sessionConfig variable, after the variable declarations but just 
-// before the server.use() declarations
-//18. the sessionConfig is an object that contains the following:
-//name, secret, cookie: { maxAge: , secure: t/f, httpOnly: t/f}, resave: t/f, 
-// saveUninitialize: t/f
+
+
 //19. next, pass the session as follows, server.use(session(sessionConfig)) *
 //20. in the auth-router.js file, in the login post method, in the if statement add 
 // 'req.session.user = user' just before the res.status(200) statement *

@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const session = require('express-session);
+const session = require('express-session');
 
 const restrict = require('./middleware/restricted.js');
 
@@ -25,6 +25,7 @@ const sessionConfig = {
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
+server.use(session(sessionConfig))
 
 server.use('/api/auth', authRouter);
 server.use('/api/jokes', restrict, jokesRouter); // only logged-in users should have access!
