@@ -1,7 +1,29 @@
+const db = require('../../data/dbConfig.js');
 const router = require('express').Router();
 
+const Jokes = require('../jokes/jokes-data.js');
+
 router.post('/register', (req, res) => {
-  res.end('implement register, please!');
+  //res.end('implement register, please!');
+  const credentials = req.body;
+  db('users').insert(credentials)
+    .then(ids => {
+      db('users as u')
+        .select('u.id', 'u.username')
+        .where('u.id')
+        .first()
+        .then(newUser => {
+          res.status(201).json(newUser)
+        })
+    })
+    .catch(err => {
+        console.log('POST error', err);
+        res.status(500).json({ message: 'Failed to store data'})
+    })
+
+
+
+
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -54,5 +76,28 @@ router.post('/login', (req, res) => {
       the response body should include a string exactly as follows: "invalid credentials".
   */
 });
+
+function find() {
+  return db('users as u')
+      .select('u.id', 'u.username')
+}
+
+function findBy(user) {
+  return db('users as u')
+      .select('u.id', 'u.username', 'u.password')
+      .where(user)
+}
+
+async function add(user) {
+  const [id] = await db('users').insert(user, 'id');
+  return findById(id);
+}
+
+function findById(id) {
+  return db('users as u')
+      .select('u.id', 'u.username')
+      .where('u.id', id)
+      .first();
+}
 
 module.exports = router;
