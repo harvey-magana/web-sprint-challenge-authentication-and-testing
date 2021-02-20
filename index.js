@@ -5,29 +5,9 @@ server.listen(PORT, () => {
   console.log(`\n=== Server listening on port ${PORT} ===\n`);
 });
 
-// 1. execute 'npm install' for starters *
-// 2. execute 'npx knex migrate:latest' *
-// 3. execute 'npx knex seed:run' *
-// 4. in api directory, create sub directory named 'auth' *
-// 5. in auth directory, create auth-router.js file *
-// 6. in server.js, create route variable for auth-router.js file *
-// 7. in server.js, mount auth variable as follows: *
-// server.us('/api/auth', authRouter);
-// 8. in auth-router.js file, connect the router to the users-model.js file *
-// 9. in the auth-router.js file, you will only be adding post methods, one to register, the other to log in *
-//10. install bcrypt with npm install bcrypt *
-//11. import bcrypt into auth-router.js file *
-//12. in auth-router.js, in the body of the post request, add the following variable
-// const hash = await bcrypt.hashSync(user.password, 10) * 
-// then, the following
-// user.password = hash *
-// these itmes must come before the try/catch
-//13. test in postman by adding a username and password to confirm the hash works
-//http://localhost:5000/api/auth/register
-//LOGIN ENDPOINT
-//14. build out the post method for logging in, using the /login endpoint
-// test in postman with the following endpoint
-//http://localhost:5000/api/auth/login
+
+
+
 //SESSIONS & COOKIES
 //15. to start using sessions, install express-session with 'npm install express-session' *
 //16. in server.js file, add const session = require('express-session); *
