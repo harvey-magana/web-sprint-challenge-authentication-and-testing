@@ -1,6 +1,7 @@
 const db = require('../../data/dbConfig.js');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const secrets = require('../config/secrets.js');
 const router = require('express').Router();
 
 const Jokes = require('../jokes/jokes-data.js');
@@ -8,6 +9,9 @@ const Jokes = require('../jokes/jokes-data.js');
 router.post('/register', (req, res) => {
   //res.end('implement register, please!');
   const credentials = req.body;
+
+  const rounds = process.env.BCRYPT_ROUNDS || 8;
+  const hash = bcryptjs.hashSync(credentials.password, rounds);
   db('users').insert(credentials)
     .then(ids => {
       db('users as u')
@@ -91,27 +95,19 @@ router.post('/login', (req, res) => {
   */
 });
 
-function find() {
-  return db('users as u')
-      .select('u.id', 'u.username')
-}
+function generateToken(user) {
+  const payload = {
+    subject: user.id,
+    username: user.username
+  }
 
-function findBy(user) {
-  return db('users as u')
-      .select('u.id', 'u.username', 'u.password')
-      .where(user)
-}
+  const options = {
+    expiresIn: '1d'
+  }
 
-async function add(user) {
-  const [id] = await db('users').insert(user, 'id');
-  return findById(id);
-}
+  const token = jwt.sign(payload, secrets.jwtSecret, options);
 
-function findById(id) {
-  return db('users as u')
-      .select('u.id', 'u.username')
-      .where('u.id', id)
-      .first();
+  return token;
 }
 
 module.exports = router;
