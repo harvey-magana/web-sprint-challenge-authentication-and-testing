@@ -20,7 +20,7 @@ router.post('/register', (req, res) => {
   db('users').insert(credentials)
     .then(ids => {
       db('users as u')
-        .select('u.id', 'u.username')
+        .select('u.id', 'u.username', 'u.password')
         .where('u.id', ids)
         .first()
         .then(newUser => {
