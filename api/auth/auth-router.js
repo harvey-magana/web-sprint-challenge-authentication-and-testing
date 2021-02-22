@@ -29,7 +29,6 @@ router.post('/register', (req, res) => {
         })
     })
     .catch(err => {
-        console.log('POST error, auth-router.js line 34', err);
         res.status(500).json({ message: 'Failed to store data'})
     })
   } else {
