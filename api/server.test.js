@@ -47,16 +47,10 @@ describe('GET /api/auth', () => {
       })
   })
 
-  describe('GET /api/jokes', () => {
-    test('Test accessing jokes page', () => {
-      
-      return request(server)
-        .get('/api/jokes')
-        .then((response) => {
-          console.log('response is ', response)
-          expect(response.statusCode).toBe(200)
-      })
-    })
+  /*
+  test('Test accessing jokes page', () => {
+    return request(server).get('/api/jokes').then((response) => {expect(response.status).toBe(200)})
   })
+  */
 })
 
